@@ -10,17 +10,19 @@ import (
 	"time"
 )
 
+/*
 const MIN = 1
 const MAX = 100
 
 func random() int {
 	return rand.Intn(MAX-MIN) + MIN
 }
-
+*/
 func handleConnection(c net.Conn) {
 	fmt.Printf("Serving %s\n", c.RemoteAddr().String())
 	for {
-		t:= time.Now()
+		t := time.Now()
+		//giving the system the exact time now
 		netData, err := bufio.NewReader(c).ReadString('\n')
 		if err != nil {
 			fmt.Println(err)
@@ -32,14 +34,13 @@ func handleConnection(c net.Conn) {
 			break
 		}
 		text := strings.TrimSpace(netData)
-		fmt.Println("Received " + text + " from process" + ", system time is " , &t)
+		//delivered receipt
+		fmt.Println("Received "+text+" from process"+", system time is ", &t)
 		//result := strconv.Itoa(random()) + "\n"
 		//c.Write([]byte(result))
 	}
 	c.Close()
 }
-
-
 
 func main() {
 	arguments := os.Args
@@ -66,6 +67,3 @@ func main() {
 		go handleConnection(c)
 	}
 }
-
-
-
